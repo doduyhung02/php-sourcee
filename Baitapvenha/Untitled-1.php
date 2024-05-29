@@ -16,7 +16,29 @@ class Product {
         $this->year = $year;
     }
 }
+// Xử lý form khi người dùng submit
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST["id"];
+    $name = $_POST["name"];
+    $price = $_POST["price"];
+    $amount = $_POST["amount"];
+    $company = $_POST["company"];
+    $year = $_POST["year"];
+
+    // Tạo đối tượng Product
+    $product = new Product($id, $name, $price, $amount, $company, $year);
+
+    // Lưu vào mảng (hoặc cơ sở dữ liệu)
+    $products[] = $product;
+
+    // Hiển thị danh sách sản phẩm
+    echo "<h2>Danh sách sản phẩm:</h2>";
+    foreach ($products as $p) {
+        echo "ID: " . $p->id . ", Tên: " . $p->name . ", Giá: $" . $p->price . "<br>";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,27 +67,5 @@ class Product {
 
         <input type="submit" value="Thêm sản phẩm">
     </form>
-    <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST["id"];
-    $name = $_POST["name"];
-    $price = $_POST["price"];
-    $amount = $_POST["amount"];
-    $company = $_POST["company"];
-    $year = $_POST["year"];
-
-    // Tạo đối tượng Product
-    $product = new Product($id, $name, $price, $amount, $company, $year);
-
-    // Lưu vào mảng (hoặc cơ sở dữ liệu)
-    $products[] = $product;
-
-    // Hiển thị danh sách sản phẩm
-    echo "<h2>Danh sách sản phẩm:</h2>";
-    foreach ($products as $p) {
-        echo "ID: " . $p->id . ", Tên: " . $p->name . ", Giá: $" . $p->price . "<br>";
-    }
-}
-?>
 </body>
 </html>
